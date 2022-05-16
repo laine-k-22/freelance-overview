@@ -316,7 +316,7 @@ def most_least_bookings():
     # Add text of 'Other' studios if there's any.
     if not dfs.empty:
         other_b = f'"Other" Category\nof shortest bookings:\n\n{dfs.to_string(index=False, header=True)}'
-        ax4.text(s=other_b, x=1.4, y=0.0, family="monospace", fontsize=9)
+        ax4.text(s=other_b, x=1.7, y=0.0, family="monospace", fontsize=8)
 
 
 def lon_cons():
@@ -481,6 +481,7 @@ wfh()
 fig.suptitle(c_year + " Freelance Year Overview", fontsize=14)
 fig.subplots_adjust(top=0.80)
 fig.text(s=income_total, x=0.12, y=0.88, fontsize=12, ha="left", va="baseline")
+fig.subplots_adjust(wspace=0.236, hspace=0.55)
 # Show figure in full screen.
 manager = plt.get_current_fig_manager()
 manager.resize(*manager.window.maxsize())
