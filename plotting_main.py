@@ -1,5 +1,4 @@
 import sys
-
 import pandas as pd
 from pandas_ods_reader import read_ods
 import matplotlib.pyplot as plt
@@ -16,7 +15,7 @@ file_path = ""
 
 # Create tkinter window.
 root = tk.Tk()
-root.title("Freelance Overview")
+root.title("FreePlots")
 
 window_width = 460
 window_height = 480
@@ -32,7 +31,7 @@ center_y = int(screen_height / 2 - window_height / 2)
 # Set the position of the window to the center of the screen
 root.geometry(f'{window_width}x{window_height}+{center_x}+{center_y}')
 root.resizable(False, False)
-root.iconbitmap("./assets/Icon_01.ico")
+root.iconbitmap(r"D:\AAA_WORK\10_Programming\Projects\01_Work_Analyzer\assets\Icon_01.ico")
 
 # Message
 tk_message = "This program analyzes Open Office Spreadsheets.\n" \
@@ -48,9 +47,9 @@ def callback(url):
     webbrowser.open_new_tab(url)
 
 
-logo = ImageTk.PhotoImage(Image.open("./assets/Logo_01.png"))
-git_logo = ImageTk.PhotoImage(Image.open("./assets/Github_logo_01.png"))
-graph_img = ImageTk.PhotoImage(Image.open("./assets/Graph_01.png"))
+logo = ImageTk.PhotoImage(Image.open(r"D:\AAA_WORK\10_Programming\Projects\01_Work_Analyzer\assets\Logo_01.png"))
+git_logo = ImageTk.PhotoImage(Image.open(r"D:\AAA_WORK\10_Programming\Projects\01_Work_Analyzer\assets\Github_logo_01.png"))
+graph_img = ImageTk.PhotoImage(Image.open(r"D:\AAA_WORK\10_Programming\Projects\01_Work_Analyzer\assets\Graph_01.png"))
 
 label1 = tk.Label(root, image=logo, cursor="hand2")
 label1.place(relx=.95, rely=.95, anchor="se")
@@ -125,7 +124,7 @@ business_days = 256
 
 # Create the figure.
 gridsize = (4, 3)
-fig = plt.figure(figsize=(16, 9), num="Freelance Overview Charts")
+fig = plt.figure(figsize=(16, 9), num="FreePlots")
 
 
 def days_worked():
@@ -485,7 +484,7 @@ fig.subplots_adjust(wspace=0.236, hspace=0.55)
 # Show figure in full screen.
 manager = plt.get_current_fig_manager()
 manager.resize(*manager.window.maxsize())
-manager.window.wm_iconbitmap("./assets/Icon_01.ico")
+manager.window.wm_iconbitmap(r"D:\AAA_WORK\10_Programming\Projects\01_Work_Analyzer\assets\Icon_01.ico")
 
 plt.show()
 
