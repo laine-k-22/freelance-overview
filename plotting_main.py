@@ -1,8 +1,11 @@
 import sys
+
+import numpy as np
 import pandas as pd
 from pandas_ods_reader import read_ods
 import matplotlib.pyplot as plt
 import matplotlib.dates as mdates
+import matplotlib.ticker
 import seaborn as sns
 import tkinter as tk
 from tkinter import filedialog as fd
@@ -238,13 +241,16 @@ def most_least_month():
     ax2.xaxis.grid(False)
 
     # Define the date format
-    date_form = mdates.DateFormatter("%m/%Y")
+    date_form = mdates.DateFormatter("%m/%y")
     ax2.xaxis.set_major_formatter(date_form)
+    ax2.yaxis.set_major_formatter(matplotlib.ticker.StrMethodFormatter('{x:,.0f}'))
 
-    # Adding labels.
-    ax2.bar_label(ax2.containers[0], label_type="edge", color="peru", fontsize=8, padding=2, alpha=0.6)
+    # Adding labels and thousand comma separators.
+    container = ax2.containers[0]
+    ax2.bar_label(container, labels=[f'{x:,.0f}' for x in container.datavalues], label_type="edge", color="peru",
+                  fontsize=8, padding=2, alpha=0.6)
 
-    ax2.set_title("Monthly profits in given currency.", fontsize=10)
+    ax2.set_title("Monthly profits in given currency.\n", fontsize=10)
     ax2.set_facecolor("whitesmoke")
 
     # Reset the index so that it does not cause problems in other functions.
@@ -261,13 +267,16 @@ def most_type():
     ax3 = plt.subplot2grid(gridsize, (0, 2), colspan=1, rowspan=2)
 
     ax3.pie(work_types, labels=work_types.index, colors=colors,
-            autopct='%1.0f%%', pctdistance=0.73, startangle=45,
+            autopct=f'%1.0f%%', pctdistance=0.73, startangle=45,
             textprops={"fontsize": 8})
 
     my_circle = plt.Circle((0, 0), 0.5, color="white")
     p = plt.gcf()
     p.gca().add_artist(my_circle)
     ax3.set_title("Work Type Overview.", fontsize=10)
+
+    count_st = f'Actual booking counts:\n\n{work_types.to_string(index=True, header=True)}'
+    ax3.text(s=count_st, x=1.7, y=0.0, family="monospace", fontsize=8)
 
 
 def most_least_bookings():
@@ -393,8 +402,11 @@ def pop_date():
     ax5.set(xlabel="Date",
             ylabel="Frequency")
 
-    ax5.set_title("Frequency of bookings\nfor each day of the month.", fontsize=10)
+    ax5.set_title("Frequency of bookings\nfor each day of the month.\n", fontsize=10)
     ax5.set_facecolor("whitesmoke")
+
+    # Y axis formatting.
+    ax5.set_yticks(np.arange(0, max(d_count["Count"]+0.5), 1))
 
     # Create Bar graph for bookings on each day of the week.
 
@@ -432,7 +444,7 @@ def pop_date():
 
     # Adding labels.
     ax6.bar_label(ax6.containers[0], label_type="edge", color="deepskyblue", fontsize=8, padding=2, alpha=0.45)
-    ax6.set_title("Frequency of bookings\nfor each day of the Week.", fontsize=10)
+    ax6.set_title("Frequency of bookings\nfor each day of the Week.\n", fontsize=10)
     ax6.set_facecolor("whitesmoke")
 
 
