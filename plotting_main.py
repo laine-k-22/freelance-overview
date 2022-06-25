@@ -13,36 +13,46 @@ from tkinter import messagebox
 from ctypes import windll
 from PIL import ImageTk, Image
 import webbrowser
+import threading
 
 file_path = ""
 
-# Create tkinter window.
 root = tk.Tk()
 root.title("FreePlots")
 
-window_width = 460
-window_height = 480
 
-# Get the screen dimension
-screen_width = root.winfo_screenwidth()
-screen_height = root.winfo_screenheight()
+def gui():
+    # Create tkinter window.
 
-# Find the center point
-center_x = int(screen_width / 2 - window_width / 2)
-center_y = int(screen_height / 2 - window_height / 2)
+    window_width = 460
+    window_height = 480
 
-# Set the position of the window to the center of the screen
-root.geometry(f'{window_width}x{window_height}+{center_x}+{center_y}')
-root.resizable(False, False)
-root.iconbitmap(r"D:\AAA_WORK\10_Programming\Projects\01_Work_Analyzer\assets\Icon_01.ico")
+    # Get the screen dimension
+    screen_width = root.winfo_screenwidth()
+    screen_height = root.winfo_screenheight()
 
-# Message
-tk_message = "This program analyzes Open Office Spreadsheets.\n" \
-             "" \
-             "\nThe Spreadsheet must be organised in a specific way, \n" \
-             "for more guidance on this, please click on graph below."
-message = tk.Label(root, text=tk_message, font=("Arial", 10))
-message.pack(pady=(40, 0))
+    # Find the center point
+    center_x = int(screen_width / 2 - window_width / 2)
+    center_y = int(screen_height / 2 - window_height / 2)
+
+    # Set the position of the window to the center of the screen
+    root.geometry(f'{window_width}x{window_height}+{center_x}+{center_y}')
+    root.resizable(False, False)
+    root.iconbitmap(r"D:\AAA_WORK\10_Programming\Projects\01_Work_Analyzer\assets\Icon_01.ico")
+
+    # Message
+    tk_message = "This program analyzes Open Office Spreadsheets.\n" \
+                 "" \
+                 "\nThe Spreadsheet must be organised in a specific way, \n" \
+                 "for more guidance on this, please click on graph below."
+    message = tk.Label(root, text=tk_message, font=("Arial", 10))
+    message.pack(pady=(40, 0))
+
+
+# An attempt to speed up the program with threading.
+t1 = threading.Thread(target=gui())
+t1.daemon = True
+t1.start()
 
 
 # Define a website call function
@@ -498,6 +508,11 @@ manager = plt.get_current_fig_manager()
 manager.resize(*manager.window.maxsize())
 manager.window.wm_iconbitmap(r"D:\AAA_WORK\10_Programming\Projects\01_Work_Analyzer\assets\Icon_01.ico")
 
-plt.show()
+# An attempt to speed up the program with threading.
+t2 = threading.Thread(target=plt.show())
+t2.daemon = True
+t2.start()
+
+# plt.show()
 
 sys.exit()
